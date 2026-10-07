@@ -63,8 +63,46 @@
 				rotationZ: 0,
 			};
 
-			// Автомасштабирование: проекция 3D→2D + подбор масштаба
-			let points2D = autoScale(vertices, camera, [], {
+			let v0 = vertices[0];
+			let v1 = vertices[1];
+			let v2 = vertices[2];
+
+			// 3D направления вдоль катетов
+			let len1 = Math.sqrt((v1.x - v0.x) ** 2 + (v1.y - v0.y) ** 2 + (v1.z - v0.z) ** 2);
+			let len2 = Math.sqrt((v2.x - v0.x) ** 2 + (v2.y - v0.y) ** 2 + (v2.z - v0.z) ** 2);
+			
+			let dir1 = {
+				x: (v1.x - v0.x) / len1,
+				y: (v1.y - v0.y) / len1,
+				z: (v1.z - v0.z) / len1,
+			};
+			let dir2 = {
+				x: (v2.x - v0.x) / len2,
+				y: (v2.y - v0.y) / len2,
+				z: (v2.z - v0.z) / len2,
+			};
+
+			let t = 0.15 * Math.min(a, b);
+
+			let q1 = {
+				x: v0.x + t * dir1.x,
+				y: v0.y + t * dir1.y,
+				z: v0.z + t * dir1.z,
+			};
+			let q2 = {
+				x: q1.x + t * dir2.x,
+				y: q1.y + t * dir2.y,
+				z: q1.z + t * dir2.z,
+			};
+			let q3 = {
+				x: v0.x + t * dir2.x,
+				y: v0.y + t * dir2.y,
+				z: v0.z + t * dir2.z,
+			};
+
+			// Автомасштабирование: проекция 3D→2D + подбор масштаба для всех точек сразу
+			let allPoints = vertices.concat([q1, q2, q3]);
+			let points2D = autoScale(allPoints, camera, [], {
 				startX: -180,
 				finishX: 180,
 				startY: -180,
@@ -78,53 +116,16 @@
 			ctx.lineWidth = 2;
 
 			// Рисуем фигуру по матрице смежности
-			ctx.drawFigure(points2D, connectionMatrix);
+			ctx.drawFigure(points2D.slice(0, vertices.length), connectionMatrix);
 
 			// Отметка прямого угла при вершине 0 основания
-			let t = 0.15 * Math.min(a, b);
-			let v0 = vertices[0];
-			let v1 = vertices[1];
-			let v2 = vertices[2];
+			let numV = vertices.length;
+			let q1_2D = points2D[numV];
+			let q2_2D = points2D[numV + 1];
+			let q3_2D = points2D[numV + 2];
 
-			let len1 = Math.sqrt((v1.x - v0.x) ** 2 + (v1.y - v0.y) ** 2);
-			let len2 = Math.sqrt((v2.x - v0.x) ** 2 + (v2.y - v0.y) ** 2);
-			let dir1 = {
-				x: (v1.x - v0.x) / len1,
-				y: (v1.y - v0.y) / len1,
-				z: v0.z,
-			};
-			let dir2 = {
-				x: (v2.x - v0.x) / len2,
-				y: (v2.y - v0.y) / len2,
-				z: v0.z,
-			};
-
-			let q1 = project3DTo2D({
-				x: v0.x + t * dir1.x,
-				y: v0.y + t * dir1.y,
-				z: v0.z,
-			}, camera);
-			let q2 = project3DTo2D({
-				x: v0.x + t * dir1.x + t * dir2.x,
-				y: v0.y + t * dir1.y + t * dir2.y,
-				z: v0.z,
-			}, camera);
-			let q3 = project3DTo2D({
-				x: v0.x + t * dir2.x,
-				y: v0.y + t * dir2.y,
-				z: v0.z,
-			}, camera);
-
-			// Масштабируем точки отметки прямого угла
-			q1.x *= camera.scale;
-			q1.y *= camera.scale;
-			q2.x *= camera.scale;
-			q2.y *= camera.scale;
-			q3.x *= camera.scale;
-			q3.y *= camera.scale;
-
-			ctx.drawLine(q1.x, q1.y, q2.x, q2.y);
-			ctx.drawLine(q2.x, q2.y, q3.x, q3.y);
+			ctx.drawLine(q1_2D.x, q1_2D.y, q2_2D.x, q2_2D.y);
+			ctx.drawLine(q2_2D.x, q2_2D.y, q3_2D.x, q3_2D.y);
 		};
 
 		NAtask.setTask({
