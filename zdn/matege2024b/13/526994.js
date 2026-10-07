@@ -34,7 +34,7 @@
 
 		// Гипотенуза нужна только второму варианту, но считаем один раз
 		let c2 = a * a + b * b;
-		let cLatex = c2.texsqrt(true, true);
+		let cLatex = c2.texsqrt(true);
 
 		let textOptions = [
 			`В основании прямой призмы лежит прямоугольный треугольник, катеты которого равны $${[a, b].shuffle().join('$ и $')}$. `,
