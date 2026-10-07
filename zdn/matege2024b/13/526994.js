@@ -33,7 +33,7 @@
 		let V = Math.round(prism.volume);
 
 		// Гипотенуза нужна только второму варианту, но считаем один раз
-		let c2 = a * a + b * b;
+		let c2 = Math.round(prism.sideC ** 2);
 		let cLatex = c2.texsqrt(true);
 
 		let textOptions = [
