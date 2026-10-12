@@ -383,4 +383,73 @@ module.exports = function registerNodeTests(QUnit) {
         assert.equal(gp.member(2), 6, 'b₂ = 6');
         assert.equal(gp.member(3), 18, 'b₃ = 18');
     });
+
+    // ============================================================
+    //  Случайные числа  (lib/func.js: sluchch = sl, Array.prototype.iz)
+    // ============================================================
+    QUnit.module('Random: sl, iz');
+
+    // Частоты значений в N испытаниях
+    function frequencies(generate, N) {
+        var counts = {};
+        for (var i = 0; i < N; i++) {
+            var key = String(generate());
+            counts[key] = (counts[key] || 0) + 1;
+        }
+        return counts;
+    }
+
+    // Каждое из ожидаемых значений выпало примерно N / m раз (допуск 5%:
+    // при N = 60000 и m <= 6 это больше пяти стандартных отклонений)
+    function assertUniform(assert, counts, expected, N, label) {
+        var keys = Object.keys(counts).sort();
+        assert.deepEqual(keys, expected.map(String).sort(), label + ': выпадают ровно ожидаемые значения');
+        var mean = N / expected.length;
+        expected.forEach(function (value) {
+            var c = counts[String(value)] || 0;
+            assert.ok(Math.abs(c - mean) < 0.05 * mean,
+                label + ': значение ' + value + ' выпало ' + c + ' раз при ожидаемых ' + mean);
+        });
+    }
+
+    QUnit.test('sl(n, k): все целые от n до k, концы не реже середины', function (assert) {
+        var N = 60000;
+        assertUniform(assert, frequencies(function () { return sl(1, 6); }, N), [1, 2, 3, 4, 5, 6], N, 'sl(1, 6)');
+        assertUniform(assert, frequencies(function () { return sl(1); }, N), [0, 1], N, 'sl(1)');
+        assertUniform(assert, frequencies(function () { return sl(3); }, N), [0, 1, 2, 3], N, 'sl(3)');
+        assertUniform(assert, frequencies(function () { return sl(-2, 2); }, N), [-2, -1, 0, 1, 2], N, 'sl(-2, 2)');
+    });
+
+    QUnit.test('sl(n, k) при k < n и при n = k', function (assert) {
+        var N = 60000;
+        assertUniform(assert, frequencies(function () { return sl(5, 1); }, N), [1, 2, 3, 4, 5], N, 'sl(5, 1)');
+        for (var i = 0; i < 100; i++) {
+            assert.equal(sl(7, 7), 7, 'sl(7, 7) = 7');
+        }
+    });
+
+    QUnit.test('sl(n, k, s): дробный шаг, оба конца достижимы, за k не выходит', function (assert) {
+        var N = 60000;
+        var counts = frequencies(function () { return Math.round(sl(0.4, 0.8, 0.01) * 100); }, N);
+        var keys = Object.keys(counts).map(Number);
+        assert.equal(Math.min.apply(null, keys), 40, 'sl(0.4, 0.8, 0.01): выпадает 0,4');
+        assert.equal(Math.max.apply(null, keys), 80, 'sl(0.4, 0.8, 0.01): выпадает 0,8 (погрешность деления учтена)');
+        assert.equal(keys.length, 41, 'sl(0.4, 0.8, 0.01): все 41 значение');
+
+        assertUniform(assert, frequencies(function () { return Math.round(sl(0.5, 2, 0.5) * 2) / 2; }, N),
+            [0.5, 1, 1.5, 2], N, 'sl(0.5, 2, 0.5)');
+
+        var max = -Infinity;
+        for (var i = 0; i < 10000; i++) {
+            max = Math.max(max, sl(0, 1, 0.4));
+        }
+        assert.ok(max <= 1, 'sl(0, 1, 0.4) не выходит за 1 (раньше округление давало 1,2), максимум ' + max);
+    });
+
+    QUnit.test('[...].iz(): первый и последний элементы не реже остальных', function (assert) {
+        var N = 60000;
+        assertUniform(assert, frequencies(function () { return ['a', 'b', 'c', 'd', 'e'].iz(); }, N),
+            ['a', 'b', 'c', 'd', 'e'], N, "['a'...'e'].iz()");
+        assertUniform(assert, frequencies(function () { return [10, 20].iz(); }, N), [10, 20], N, '[10, 20].iz()');
+    });
 };
