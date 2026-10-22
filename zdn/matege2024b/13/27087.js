@@ -15,13 +15,12 @@
 			ct.translate(110, 141);
 			ct.scale(90, -90);
 			ct.lineWidth = 2 / 90;
-			ct.strokeStyle = om.secondaryBrandColors.iz();
 
 			ct.drawRightPyramid3({
 				edge: 2,
 				height: 2.5,
 				angle: Math.PI / 4
-			}, [5, 1, 2], [5 / 90, 2 / 90]); // пунктиром скрытое боковое ребро (задняя вершина - вершина)
+			}, [5], [5 / 90, 2 / 90]); // пунктиром скрытое боковое ребро (задняя вершина - вершина)
 		};
 
 		NAtask.setTask({
