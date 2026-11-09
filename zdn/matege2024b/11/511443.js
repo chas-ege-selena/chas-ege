@@ -15,62 +15,74 @@
 			let radiusX = 60;
 			let radiusY = 15;
 			let waterY = 140;
-
-			let edgeColor = om.secondaryBrandColors.iz();
-			let liquidColor = om.transparentBrandColors.iz();
-
+			
 			ct.lineWidth = 2;
-			ct.strokeStyle = edgeColor;
-
-			// Заливка воды одним контуром, чтобы полупрозрачный цвет
-			// нигде не накладывался сам на себя (приём из 514063)
+			ct.strokeStyle = '#000';
+			
+			// Верхний эллипс (открытый верх)
+			ct.beginPath();
+			ct.ellipse(cx, topY, radiusX, radiusY, 0, 0, Math.PI * 2);
+			ct.stroke();
+			
+			// Боковые линии
+			ct.beginPath();
+			ct.moveTo(cx - radiusX, topY);
+			ct.lineTo(cx - radiusX, bottomY);
+			ct.moveTo(cx + radiusX, topY);
+			ct.lineTo(cx + radiusX, bottomY);
+			ct.stroke();
+			
+			// Нижний эллипс (задняя часть дна)
+			ct.beginPath();
+			ct.ellipse(cx, bottomY, radiusX, radiusY, 0, Math.PI, 0);
+			ct.stroke();
+			
+			// Уровень воды (пунктирный эллипс)
+			ct.beginPath();
+			ct.ellipse(cx, waterY, radiusX, radiusY, 0, 0, Math.PI * 2);
+			ct.setLineDash([5, 3]);
+			ct.stroke();
+			ct.setLineDash([]);
+			
+			// Заливка воды
 			ct.beginPath();
 			ct.moveTo(cx - radiusX, waterY);
 			ct.lineTo(cx - radiusX, bottomY);
 			ct.ellipse(cx, bottomY, radiusX, radiusY, 0, Math.PI, 0, true);
 			ct.lineTo(cx + radiusX, waterY);
-			ct.ellipse(cx, waterY, radiusX, radiusY, 0, 0, Math.PI, true);
-			ct.closePath();
-			ct.fillStyle = liquidColor;
+			ct.ellipse(cx, waterY, radiusX, radiusY, 0, 0, Math.PI * 2, true);
+			ct.fillStyle = 'rgba(173, 216, 230, 0.6)';
 			ct.fill();
-
-			// Верхний эллипс (открытый верх)
-			ct.drawEllipse(cx, topY, radiusX, radiusY);
-
-			// Боковые стенки
-			ct.drawLine(cx - radiusX, topY, cx - radiusX, bottomY);
-			ct.drawLine(cx + radiusX, topY, cx + radiusX, bottomY);
-
-			// Поверхность воды: передняя дуга сплошная, задняя пунктирная
-			ct.beginPath();
-			ct.ellipse(cx, waterY, radiusX, radiusY, 0, 0, Math.PI);
-			ct.stroke();
-			ct.setLineDash([5, 3]);
-			ct.beginPath();
-			ct.ellipse(cx, waterY, radiusX, radiusY, 0, Math.PI, 2 * Math.PI);
-			ct.stroke();
-			ct.setLineDash([]);
-
-			// Дно: передняя дуга сплошная, задняя пунктирная
-			ct.beginPath();
-			ct.ellipse(cx, bottomY, radiusX, radiusY, 0, 0, Math.PI);
-			ct.stroke();
-			ct.setLineDash([5, 3]);
-			ct.beginPath();
-			ct.ellipse(cx, bottomY, radiusX, radiusY, 0, Math.PI, 2 * Math.PI);
-			ct.stroke();
-			ct.setLineDash([]);
-
-			// Двунаправленная стрелка с обозначением h: охватывает столб
-			// жидкости, т.е. от поверхности воды до дна сосуда
+			
+			// Стрелка с обозначением h: охватывает столб жидкости,
+			// т.е. от поверхности воды до дна сосуда
 			let arrowX = cx + radiusX + 30;
-			ct.strokeStyle = edgeColor;
-			ct.drawArrow(arrowX, bottomY, arrowX, waterY);
-			ct.drawArrow(arrowX, waterY, arrowX, bottomY);
-
+			ct.lineWidth = 2;
+			ct.strokeStyle = '#000';
+			
+			// Вертикальная линия стрелки
+			ct.beginPath();
+			ct.moveTo(arrowX, waterY);
+			ct.lineTo(arrowX, bottomY);
+			ct.stroke();
+			
+			// Стрелка вверх (к поверхности воды)
+			ct.beginPath();
+			ct.moveTo(arrowX - 5, waterY + 8);
+			ct.lineTo(arrowX, waterY);
+			ct.lineTo(arrowX + 5, waterY + 8);
+			ct.stroke();
+			
+			// Стрелка вниз (ко дну)
+			ct.beginPath();
+			ct.moveTo(arrowX - 5, bottomY - 8);
+			ct.lineTo(arrowX, bottomY);
+			ct.lineTo(arrowX + 5, bottomY - 8);
+			ct.stroke();
+			
 			// Буква h
-			ct.fillStyle = edgeColor;
-			ct.font = 'italic 20px serif';
+			ct.fillStyle = '#000';
+			ct.font = '20px sans-serif';
 			ct.fillText('h', arrowX + 10, (waterY + bottomY) / 2 + 7);
 		};
 
