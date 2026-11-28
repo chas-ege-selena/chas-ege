@@ -62,3 +62,4 @@
 	}, 2000);
 })();
 // https://base.mathege.ru/clones/?position=16&parent=6708
+// ФИПИ 674AFF 24C779 3A0772 AF8AAB 221C97
