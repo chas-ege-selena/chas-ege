@@ -44,3 +44,4 @@
 	}, 2000);
 })();
 // https://oge.sdamgia.ru/problem?id=356893
+// ФИПИ B30F7F 151F75 1D1310 F547A6 83689C 8BEE54 D4E3E6 C764EF F45E6B 365266
