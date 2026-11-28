@@ -69,4 +69,4 @@
 })();
 // https://oge.sdamgia.ru/problem?id=450514
 // https://ege.sdamgia.ru/problem?id=541815
-
+// ФИПИ 6C9EF4 541118 1D31C1 16B266 F216F4 D93BBC DAE6A6 69CD50 6C273B
