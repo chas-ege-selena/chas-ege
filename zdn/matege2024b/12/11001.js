@@ -53,3 +53,4 @@
 
 })();
 // https://base.mathege.ru/clones/?position=16&parent=11001
+// ФИПИ 332A44 D0C5F4 A4CB1B 926121 AA1A51 8A9AAF 101DC4 890BC9 88ED38 63E289
