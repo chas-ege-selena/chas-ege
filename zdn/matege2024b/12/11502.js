@@ -82,3 +82,4 @@
 })();
 // https://base.mathege.ru/clones/?position=16&parent=11502
 // https://base.mathege.ru/clones/?position=16&parent=11472
+// ФИПИ 115243 F8B2D7 4E9E6A 1D8D8F C13F86 EADEB1 E9C972 E435C3 6F9261 EBE13F E2D144 8D304D DF9CDD CAA451 C9B5C2 B9943D 18B146 8690A5 AFD872 8D511D
