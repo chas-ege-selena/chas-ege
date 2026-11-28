@@ -59,3 +59,4 @@
 	}, 2000);
 })();
 // https://base.mathege.ru/clones/?position=16&parent=1845
+// ФИПИ 18BCF7 994558
