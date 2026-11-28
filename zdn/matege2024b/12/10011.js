@@ -94,3 +94,4 @@
 
 })();
 // https://base.mathege.ru/clones/?position=16&parent=10011
+// ФИПИ FC28F8 14361C B04BAB 5305C1 00C293 7B5586 C4FE42 42335E
