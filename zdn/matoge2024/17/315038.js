@@ -93,3 +93,4 @@
 
 })();
 // https://oge.sdamgia.ru/problem?id=315038
+// ФИПИ E63248 32151E 4A48AF 8F3B36 AB5A83 7C57E0 095900 1520BE 0E2BF9 CE33E8
