@@ -45,3 +45,4 @@
     }, 2000);
 })();
 // https://oge.sdamgia.ru/problem?id=356873
+// ФИПИ 4F5745 C0017A B68C17 109DA1 0B6487 F22DB9 4C0223 2D6020 7E48AD 6F62C1
