@@ -71,3 +71,4 @@
 
 })();
 // https://base.mathege.ru/clones/?position=16&parent=10168
+// ФИПИ 1D121C 91B45B EBC7AB 475B32 FAA6DB 1E2F4B
