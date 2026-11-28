@@ -71,4 +71,4 @@
 
 })();
 // https://math-oge.sdamgia.ru/problem?id=348379
-
+// ФИПИ FE3D40 9F8E45 5608FB 4306BF 3561BE AF2B19 36955E AC3FA1 2A7231 D41B33
