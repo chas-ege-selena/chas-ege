@@ -52,4 +52,4 @@
 	}, 2000);
 })();
 // https://oge.sdamgia.ru/problem?id=356329
-
+// ФИПИ 239EF1 B0D10B F93971 099B7F 691110 2E895A 65845E 569EAC 17E9C9 A70D9B
