@@ -55,4 +55,4 @@
     }, 10000);
 })();
 // https://oge.sdamgia.ru/problem?id=355387
-
+// ФИПИ 1AE9FC 288717 301A24 B404D2 81B7DF 74C85E 2231C2 7CF9EB D5823B 654235
