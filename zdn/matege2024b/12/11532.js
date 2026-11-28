@@ -65,3 +65,4 @@
 })();
 // https://base.mathege.ru/clones/?position=16&parent=11532
 // https://base.mathege.ru/clones/?position=16&parent=10121
+// ФИПИ 1D3B01 BD5E8B DD4576 67178E 0CFC47 8E36FC B1801B 6E7A19 F6BFEE D727E8 7F32B9 BD8439 5FDE42 8C13FF 6E258C
