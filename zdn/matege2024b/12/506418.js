@@ -24,3 +24,4 @@
 	NAtask.modifiers.allDecimalsToStandard(true);
 })();
 // https://mathb-ege.sdamgia.ru/problem?id=506418
+// ФИПИ 7F1C45 2D0A26 C39628 DC90D1 1E0E51 D5239D 64679B 44C5EE DD8D61 75508D
